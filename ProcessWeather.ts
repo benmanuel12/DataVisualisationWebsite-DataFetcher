@@ -1,3 +1,5 @@
+// Example of how to export classes
+
 // import {DynamoDB} from './DynamoDB'
 
 // export class exampleClass {
@@ -12,8 +14,6 @@
 //     }
 // }
 
-const fs = require('fs');
-const readline = require('readline');
 
 export class WeatherResult {
     location: string;

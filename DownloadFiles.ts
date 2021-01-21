@@ -7,7 +7,7 @@ export function downloadFile(url: string, path: string): void{
             let file = fs.createWriteStream(path);
             response.pipe(file);
         }
-        request.setTimeout(60000, function() { // if after 60s file not downlaoded, we abort a request 
+        request.setTimeout(60000, function() { // if after 60s file not downloaded, we abort a request 
             request.abort();
         });
     });
