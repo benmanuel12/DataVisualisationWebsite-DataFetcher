@@ -1,4 +1,7 @@
-import {processWeather} from './ProcessWeather'
+import {processWeatherRefined} from './ProcessWeather'
+import {putWeather} from './PutWeather'
+
+putWeather([]);
 /*
 This code is used to download the files from the internet
 Its not needed everytime the code is run unless the file is likely to have changed
@@ -24,4 +27,10 @@ for (let i: number = 0; i < urls.length; i++) {
 }
 */
 
-let results = processWeather("sources/armaghdata.txt", "Armagh")
+let armaghresults = processWeatherRefined("sources/armaghdata.txt", "Armagh")
+// let braemarresults = processWeatherRefined("sources/braemardata.txt", "Braemar")
+// let camborneresults = processWeatherRefined("sources/cambornedata.txt", "Camborne")
+// let durhamresults = processWeatherRefined("sources/durhamdata.txt", "Durham")
+// let heathrowresults = processWeatherRefined("sources/heathrowdata.txt", "Heathrow")
+
+putWeather(armaghresults)
