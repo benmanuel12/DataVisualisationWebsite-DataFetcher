@@ -1,0 +1,8 @@
+Create class with one attribute and getters and setters for it
+Import it into another file
+Create an array of class instances
+attempt to access class instance attributes
+directly
+by getter
+by getter in array
+by iterative loop and dynamic index

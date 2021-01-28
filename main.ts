@@ -1,7 +1,7 @@
 import {processWeatherRefined} from './ProcessWeather'
 import {putWeather} from './PutWeather'
+import {WeatherResultRefined} from './ProcessWeather'
 
-putWeather([]);
 /*
 This code is used to download the files from the internet
 Its not needed everytime the code is run unless the file is likely to have changed
@@ -34,3 +34,10 @@ let armaghresults = processWeatherRefined("sources/armaghdata.txt", "Armagh")
 // let heathrowresults = processWeatherRefined("sources/heathrowdata.txt", "Heathrow")
 
 putWeather(armaghresults)
+// putWeather(braemarresults)
+// putWeather(camborneresults)
+// putWeather(durhamresults)
+// putWeather(heathrowresults)
+
+// let testClass = new WeatherResultRefined("Hello", 1, 30, -5)
+// putWeather([testClass])

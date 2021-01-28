@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var ProcessWeather_1 = require("./ProcessWeather");
+var PutWeather_1 = require("./PutWeather");
 /*
 This code is used to download the files from the internet
 Its not needed everytime the code is run unless the file is likely to have changed
@@ -26,7 +27,14 @@ for (let i: number = 0; i < urls.length; i++) {
 }
 */
 var armaghresults = ProcessWeather_1.processWeatherRefined("sources/armaghdata.txt", "Armagh");
-// var braemarresults = ProcessWeather_1.processWeatherRefined("sources/braemardata.txt", "Braemar");
-// var camborneresults = ProcessWeather_1.processWeatherRefined("sources/cambornedata.txt", "Camborne");
-// var durhamresults = ProcessWeather_1.processWeatherRefined("sources/durhamdata.txt", "Durham");
-// var heathrowresults = ProcessWeather_1.processWeatherRefined("sources/heathrowdata.txt", "Heathrow");
+// let braemarresults = processWeatherRefined("sources/braemardata.txt", "Braemar")
+// let camborneresults = processWeatherRefined("sources/cambornedata.txt", "Camborne")
+// let durhamresults = processWeatherRefined("sources/durhamdata.txt", "Durham")
+// let heathrowresults = processWeatherRefined("sources/heathrowdata.txt", "Heathrow")
+PutWeather_1.putWeather(armaghresults);
+// putWeather(braemarresults)
+// putWeather(camborneresults)
+// putWeather(durhamresults)
+// putWeather(heathrowresults)
+// let testClass = new WeatherResultRefined("Hello", 1, 30, -5)
+// putWeather([testClass])
