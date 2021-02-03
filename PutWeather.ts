@@ -1,6 +1,6 @@
-import {WeatherResultRefined} from './ProcessWeather'
+import {WeatherResult} from './ProcessWeather'
 
-export function putWeather(dataArray: WeatherResultRefined[]){
+export function putWeather(dataArray: WeatherResult[]){
     let AWS = require("aws-sdk");
     
     AWS.config.update({
@@ -8,11 +8,12 @@ export function putWeather(dataArray: WeatherResultRefined[]){
         endpoint: "https://dynamodb.us-east-1.amazonaws.com"
     });
 
-    for (let i = 0; i < 1; i++) {
+    for (let i = 0; i < dataArray.length; i++) {
         let documentClient = new AWS.DynamoDB.DocumentClient();
 
-        console.log("Type: " + typeof(dataArray[i]))
-        console.log("Value: " + dataArray[i])
+        // console.log("tmax: " + typeof(dataArray[0].getTmax()));
+        // console.log("tmin: " + typeof(dataArray[0].getTmin()));
+        // console.log(dataArray[0])
 
         let params = {
             TableName: "WeatherData",

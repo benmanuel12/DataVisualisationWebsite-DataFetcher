@@ -1,6 +1,6 @@
-import {processWeatherRefined} from './ProcessWeather'
+import {processWeather} from './ProcessWeather'
 import {putWeather} from './PutWeather'
-import {WeatherResultRefined} from './ProcessWeather'
+import {WeatherResult} from './ProcessWeather'
 
 /*
 This code is used to download the files from the internet
@@ -27,17 +27,21 @@ for (let i: number = 0; i < urls.length; i++) {
 }
 */
 
-let armaghresults = processWeatherRefined("sources/armaghdata.txt", "Armagh")
-// let braemarresults = processWeatherRefined("sources/braemardata.txt", "Braemar")
-// let camborneresults = processWeatherRefined("sources/cambornedata.txt", "Camborne")
-// let durhamresults = processWeatherRefined("sources/durhamdata.txt", "Durham")
-// let heathrowresults = processWeatherRefined("sources/heathrowdata.txt", "Heathrow")
+async function dataFunction() {
+    //let armaghresults: any = await processWeather("sources/armaghdata.txt", "Armagh")
+    //let braemarresults: any = await processWeather("sources/braemardata.txt", "Braemar")
+    // let camborneresults: any = await processWeather("sources/cambornedata.txt", "Camborne")
+    // let durhamresults: any = await processWeather("sources/durhamdata.txt", "Durham")
+     let heathrowresults: any = await processWeather("sources/heathrowdata.txt", "Heathrow")
+    // console.log("tmax: " + typeof(armaghresults[0].getTmax()));
+    // console.log("tmin: " + typeof(armaghresults[0].getTmin()));
+    // console.log(armaghresults[0])
 
-putWeather(armaghresults)
-// putWeather(braemarresults)
-// putWeather(camborneresults)
-// putWeather(durhamresults)
-// putWeather(heathrowresults)
+    //putWeather(armaghresults)
+    //putWeather(braemarresults)
+    // putWeather(camborneresults)
+    // putWeather(durhamresults)
+     putWeather(heathrowresults)
+}
 
-// let testClass = new WeatherResultRefined("Hello", 1, 30, -5)
-// putWeather([testClass])
+dataFunction();

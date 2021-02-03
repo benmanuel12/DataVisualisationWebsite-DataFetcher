@@ -7,12 +7,11 @@ function putWeather(dataArray) {
         region: "us-east-1",
         endpoint: "https://dynamodb.us-east-1.amazonaws.com"
     });
-    console.log("Type: " + typeof (dataArray[0]));
-    console.log("Value: " + dataArray[0]);
     var _loop_1 = function (i) {
         var documentClient = new AWS.DynamoDB.DocumentClient();
-        console.log("Type: " + typeof (dataArray[i]));
-        console.log("Value: " + dataArray[i]);
+        // console.log("tmax: " + typeof(dataArray[0].getTmax()));
+        // console.log("tmin: " + typeof(dataArray[0].getTmin()));
+        // console.log(dataArray[0])
         var params = {
             TableName: "WeatherData",
             Item: {
@@ -34,7 +33,7 @@ function putWeather(dataArray) {
             }
         });
     };
-    for (var i = 0; i < 1; i++) {
+    for (var i = 0; i < dataArray.length; i++) {
         _loop_1(i);
     }
 }

@@ -1,20 +1,7 @@
-// Example of how to export classes
+import { timeStamp } from "console";
 
-// import {DynamoDB} from './DynamoDB'
 
-// export class exampleClass {
-//     dynamoDB:DynamoDB;
-
-//     constructor(){
-
-//     }
-
-//     sayHello(): void{
-//         await this.dynamoDB.save(THE DAT)
-//     }
-// }
-
-export class WeatherResultRefined {
+export class WeatherResult {
     location: string;
     timestamp: number;
     tmax: number; // Mean daily max temperature (C)
@@ -47,43 +34,59 @@ export class WeatherResultRefined {
     toString(): string {
         return "Location: " + this.location + " Timestamp: " + this.timestamp + " Mean Max Temp: " + this.tmax + " Mean Min Temp: " + this.tmin
     }
-
-
 }
 
-export function processWeatherRefined(filename: string, location: string): any{
-    let Results: WeatherResultRefined[] = []
-    let lineReader = require('readline').createInterface({
-        input: require('fs').createReadStream(filename)
-    });
-    let lineno = 0
-    lineReader.on('line', function (line: any) {
-        lineno++
+export async function processWeather(filename: string, location: string){
+    let fs = require('fs');
+    let result = await fs.promises.readFile(filename, 'utf8');
+    let resArray:Array<string> = result.split("\n");
+    let outputArray: WeatherResult[] = []
+    
+    for (let line of resArray){
         if ((line.indexOf(" ") == 0) && ((line.includes("yyyy") == false) || (line.includes("days") == false))) {
-            let year: number = line.slice(3, 7)
-            let month: number = line.slice(9, 11).trim()
+            let regex:any = /[ ]{2,}/;
+            let lineArray = line.split(regex);
+            lineArray.shift();
+            let year = lineArray[0];
+            let month = lineArray[1];
 
-            let tmax: number = avoidTypeErrors(line.slice(15, 18))
-            let tmin: number = avoidTypeErrors(line.slice(22, 26))
-            
-            let timestring: string = year + "-" + month + "-1"
+            let timestring: string = year + "-" + month + "-1"; // YYYY-MM-1
 
-            let timestamp: number = new Date(timestring).valueOf()
+            let timestamp: number = new Date(timestring).valueOf();
 
-            let tempWeather = new WeatherResultRefined(location, timestamp, tmax, tmin)
+            let tmax: number = avoidErrors(lineArray[2])
+            let tmin: number = avoidErrors(lineArray[3])
+            let tempWeather = new WeatherResult(location, timestamp, tmax, tmin);
             //console.log(tempWeather.toString())
-            Results.push(tempWeather)
-        }        
-    });
+            
+            outputArray.push(tempWeather)
+        }
 
-    return Results
+        
+    }
+    outputArray.shift()
+    outputArray.shift()
+    // console.log("tmax: " + typeof(outputArray[0].getTmax()));
+    // console.log("tmin: " + typeof(outputArray[0].getTmin()));
+    // console.log(outputArray[0])
+    return new Promise( (resolve, reject) => {
+        resolve(outputArray)
+    })
 }
 
-
-function avoidTypeErrors(input: number | string): any{
+function avoidErrors(input: string): number{
     if (input == "---"){
-        return null
-    } else {
-        return input
+        console.log("number is " + input)
+        return -300
+
+    } else if (input.indexOf('*') != -1) {
+        // Some lines have a * at the end
+        input = input.slice(0, -1);
+        console.log("number is " + input)
+        return parseFloat(input)
+
+    }else {
+        console.log("number is " + input)
+        return parseFloat(input)
     }
 }
